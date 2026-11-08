@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SubSniff · Find the subscriptions you forgot about</title>
+<meta name="description" content="Drop your bank statement CSV. SubSniff finds every recurring charge, what it costs you per year and which prices went up. Your data never leaves the browser.">
+<meta property="og:title" content="SubSniff">
+<meta property="og:description" content="Find the subscriptions you forgot you are paying for. Private by design: runs in your browser.">
+<meta property="og:image" content="https://lockdomain.github.io/subsniff/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%236366f1'/><circle cx='28' cy='28' r='13' stroke='white' stroke-width='6' fill='none'/><path d='M38 38l11 11' stroke='white' stroke-width='7' stroke-linecap='round'/></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="logo"></span> SubSniff</div>
+  <a class="gh" href="https://github.com/lockdomain/subsniff" target="_blank" rel="noopener">GitHub</a>
+</header>
+
+<main class="wrap">
+  <section class="hero" id="hero">
+    <h1>Find the subscriptions<br>you forgot you're paying for.</h1>
+    <p>Drop a CSV export from your bank. SubSniff finds every recurring charge, what it really costs per year, and which prices quietly went up.</p>
+    <label class="drop" id="drop" tabindex="0">
+      <input type="file" accept=".csv,text/csv,text/plain" id="file" hidden>
+      <div class="big">Drop your statement CSV</div>
+      <div class="muted">or click to choose a file</div>
+    </label>
+    <div class="row"><button class="ghost" id="sample">Try a sample statement</button></div>
+    <p class="lock">🔒 Your statement is read inside this tab. Nothing is uploaded, stored or tracked.</p>
+  </section>
+
+  <section id="results" hidden>
+    <div class="summary">
+      <div class="card big-num"><span class="k">Subscriptions</span><span class="v" id="sMonthly">0</span><span class="s" id="sCount"></span></div>
+      <div class="card big-num"><span class="k">Per year</span><span class="v" id="sYearly">0</span><span class="s" id="sRange"></span></div>
+      <div class="card big-num warn"><span class="k">Price increases</span><span class="v" id="sUp">0</span><span class="s" id="sUpTxt"></span></div>
+    </div>
+
+    <div class="save" id="save">
+      <span>Tick what you want to cancel</span>
+      <b id="saveAmt"></b>
+    </div>
+
+    <div class="list" id="list"></div>
+
+    <details class="more" id="billsWrap"><summary>Recurring bills <span id="billsN"></span></summary><div class="list" id="bills"></div></details>
+    <details class="more" id="endedWrap"><summary>Stopped charging <span id="endedN"></span></summary><div class="list" id="ended"></div></details>
+
+    <div class="actions">
+      <select id="cur" aria-label="Currency">
+        <option value="USD">$ USD</option><option value="EUR">€ EUR</option><option value="GBP">£ GBP</option>
+        <option value="CAD">$ CAD</option><option value="AUD">$ AUD</option><option value="INR">₹ INR</option><option value="PLN">zł PLN</option><option value="RUB">₽ RUB</option>
+      </select>
+      <button class="ghost" id="export">Export list as CSV</button>
+      <button class="ghost" id="again">Analyze another file</button>
+    </div>
+    <p class="muted small" id="meta"></p>
+  </section>
+
+  <section class="help">
+    <h2>How to get your CSV</h2>
+    <div class="grid">
+      <div><b>Most banks</b><span>Online banking, open your account, look for Download, Export or Statements, and pick CSV. Twelve months gives the best results.</span></div>
+      <div><b>Credit cards</b><span>Card issuers usually have Activity, then Download. Subscriptions often live on a card, so check it too.</span></div>
+      <div><b>Any format</b><span>Comma, semicolon or tab. US and European dates and numbers. One amount column, or separate debit and credit columns.</span></div>
+    </div>
+  </section>
+</main>
+<footer class="foot">Free and open source. Made by <a href="https://x.com/lockdomain" target="_blank" rel="noopener">@lockdomain</a></footer>
+<script src="sniff.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
